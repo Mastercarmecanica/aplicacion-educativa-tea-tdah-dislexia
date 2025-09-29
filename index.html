@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aplicación Educativa TEA, TDAH y Dislexia</title>
+    <meta name="description" content="Aplicación web educativa especializada para niños con TEA, TDAH y dislexia basada en evidencia científica">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #E8F5E8 0%, #E1F5FE 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .header {
+            text-align: center;
+            padding: 3rem 0;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            color: #2c3e50;
+            margin-bottom: 1rem;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-card h3 {
+            color: #2c3e50;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .apps-section {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 3rem;
+            border-radius: 20px;
+            margin: 2rem 0;
+        }
+
+        .apps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .app-card {
+            border: 3px solid #3498db;
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        }
+
+        .app-card h4 {
+            color: #2c3e50;
+            margin-bottom: 1rem;
+        }
+
+        .btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #3498db 0%, #2c3e50 100%);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin: 1rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.4);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #27ae60 0%, #2c3e50 100%);
+        }
+
+        .scientific-basis {
+            background: rgba(236, 240, 241, 0.9);
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            color: #666;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 15px;
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>🌟 Aplicación Educativa Especializada</h1>
+            <p>Para niños con TEA, TDAH y Dislexia • Basada en evidencia científica</p>
+        </header>
+
+        <section class="features">
+            <div class="feature-card">
+                <h3>🔬 Base Científica</h3>
+                <p>Fundamentada en más de 30 estudios científicos sobre neurodivergencia y educación especial</p>
+            </div>
+            <div class="feature-card">
+                <h3>♿ Accesibilidad Total</h3>
+                <p>Cumple estándares WCAG 2.2 AAA con navegación por teclado y compatibilidad con lectores de pantalla</p>
+            </div>
+            <div class="feature-card">
+                <h3>🎯 Personalización</h3>
+                <p>Adaptación automática según progreso y necesidades individuales del niño</p>
+            </div>
+        </section>
+
+        <section class="apps-section">
+            <h2>🎮 Aplicaciones Disponibles</h2>
+            <div class="apps-grid">
+                <div class="app-card">
+                    <h4>Aplicación Básica</h4>
+                    <p>Perfecta para comenzar: números 1-5, vocales básicas, 2 cuentos interactivos</p>
+                    <a href="apps/app-basica/index.html" class="btn">Probar Aplicación Básica</a>
+                </div>
+                <div class="app-card">
+                    <h4>Aplicación Avanzada</h4>
+                    <p>Completa: 4 fases progresivas, 15 cuentos, sistema de regulación emocional</p>
+                    <a href="apps/app-avanzada/index.html" class="btn btn-secondary">Probar Aplicación Avanzada</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="scientific-basis">
+            <h2>📚 Documentación y Recursos</h2>
+            <p>Accede a toda la investigación, guías y documentación técnica del proyecto:</p>
+            <a href="docs/" class="btn">Ver Documentación</a>
+            <a href="research/" class="btn btn-secondary">Investigación Científica</a>
+        </section>
+
+        <footer class="footer">
+            <p>Proyecto de código abierto bajo Licencia MIT • Contribuciones bienvenidas</p>
+            <p>⭐ Si te ayuda, considera dar una estrella en GitHub</p>
+        </footer>
+    </div>
+</body>
+</html>
