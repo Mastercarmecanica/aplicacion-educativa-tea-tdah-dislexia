@@ -5,36 +5,61 @@ const appData = {
       numero: 1,
       palabra: "uno",
       objetos: ["🍎"],
-      color: "#E8F5E8",
-      actividades: ["contar", "trazar", "reconocer"]
+      color: "#E8F5E8"
     },
     {
       numero: 2,
       palabra: "dos",
       objetos: ["🐱", "🐱"],
-      color: "#E1F5FE",
-      actividades: ["contar", "emparejar", "secuencia"]
+      color: "#E1F5FE"
     },
     {
       numero: 3,
       palabra: "tres",
       objetos: ["⭐", "⭐", "⭐"],
-      color: "#F1F8E9",
-      actividades: ["contar", "agrupar", "comparar"]
+      color: "#F1F8E9"
     },
     {
       numero: 4,
       palabra: "cuatro",
       objetos: ["🌸", "🌸", "🌸", "🌸"],
-      color: "#FFF8E1",
-      actividades: ["contar", "dividir", "sumar"]
+      color: "#FFF8E1"
     },
     {
       numero: 5,
       palabra: "cinco",
       objetos: ["🦋", "🦋", "🦋", "🦋", "🦋"],
-      color: "#F3E5F5",
-      actividades: ["contar", "restar", "completar"]
+      color: "#F3E5F5"
+    },
+    {
+      numero: 6,
+      palabra: "seis",
+      objetos: ["🚗", "🚗", "🚗", "🚗", "🚗", "🚗"],
+      color: "#E8F5E8"
+    },
+    {
+      numero: 7,
+      palabra: "siete",
+      objetos: ["⚽", "⚽", "⚽", "⚽", "⚽", "⚽", "⚽"],
+      color: "#E1F5FE"
+    },
+    {
+      numero: 8,
+      palabra: "ocho",
+      objetos: ["🌳", "🌳", "🌳", "🌳", "🌳", "🌳", "🌳", "🌳"],
+      color: "#F1F8E9"
+    },
+    {
+      numero: 9,
+      palabra: "nueve",
+      objetos: ["🎈", "🎈", "🎈", "🎈", "🎈", "🎈", "🎈", "🎈", "🎈"],
+      color: "#FFF8E1"
+    },
+    {
+      numero: 10,
+      palabra: "diez",
+      objetos: ["⭐", "⭐", "⭐", "⭐", "⭐", "⭐", "⭐", "⭐", "⭐", "⭐"],
+      color: "#F3E5F5"
     }
   ],
   vocales: [
@@ -110,6 +135,32 @@ const appData = {
         {
           pregunta: "¿Cómo se llama la estrella?",
           opciones: ["Brillo", "Luz", "Cielo"],
+          respuesta: 1
+        }
+      ]
+    },
+    {
+      id: 4,
+      titulo: "El Perro Fiel",
+      texto: "Toby es un perro grande y marrón. Le encanta jugar a la pelota en el parque. Toby siempre cuida a su familia. Es un perro muy bueno y leal.",
+      imagen: "🐶",
+      preguntas: [
+        {
+          pregunta: "¿De qué color es Toby?",
+          opciones: ["Negro", "Marrón", "Blanco"],
+          respuesta: 1
+        }
+      ]
+    },
+    {
+      id: 5,
+      titulo: "El Pez Veloz",
+      texto: "Nemo es un pez muy rápido. Vive en el gran océano azul. Le gusta nadar entre las algas y jugar con las burbujas. Nemo es el pez más veloz de todos.",
+      imagen: "🐠",
+      preguntas: [
+        {
+          pregunta: "¿Dónde vive Nemo?",
+          opciones: ["En un río", "En el océano", "En un lago"],
           respuesta: 1
         }
       ]
@@ -201,52 +252,102 @@ const ScreenManager = {
 
 // Actividades
 const NumbersActivity = {
+  correctAnswer: 0,
+
   init() {
-    this.updateDisplay();
+    this.generateRound();
     this.bindEvents();
   },
-  
-  updateDisplay() {
-    const numero = appData.numeros[currentState.currentNumber];
-    document.getElementById('current-number').textContent = numero.numero;
-    document.getElementById('current-word').textContent = numero.palabra;
-    
-    const objectsContainer = document.getElementById('number-objects');
+
+  generateRound() {
+    // 1. Elegir un número aleatorio
+    const randomIndex = Math.floor(Math.random() * appData.numeros.length);
+    const currentNumberData = appData.numeros[randomIndex];
+    this.correctAnswer = currentNumberData.numero;
+
+    // 2. Mostrar los objetos en pantalla
+    const objectsContainer = document.getElementById('number-objects-display');
     objectsContainer.innerHTML = '';
-    numero.objetos.forEach(objeto => {
+    currentNumberData.objetos.forEach(objeto => {
       const span = document.createElement('span');
       span.className = 'object';
       span.textContent = objeto;
       objectsContainer.appendChild(span);
     });
-    
-    // Actualizar navegación
-    document.getElementById('prev-number').disabled = currentState.currentNumber === 0;
-    document.getElementById('next-number').disabled = currentState.currentNumber === appData.numeros.length - 1;
+
+    // 3. Generar opciones de respuesta
+    const choicesContainer = document.getElementById('number-choices');
+    choicesContainer.innerHTML = '';
+    const feedback = document.getElementById('number-feedback');
+    feedback.innerHTML = '';
+
+    const options = this.generateOptions(this.correctAnswer);
+
+    // 4. Crear y mostrar los botones de opción
+    options.forEach(option => {
+      const button = document.createElement('button');
+      button.className = 'btn btn--secondary choice-btn';
+      button.textContent = option;
+      button.setAttribute('data-number', option);
+      button.addEventListener('click', () => this.checkAnswer(option));
+      choicesContainer.appendChild(button);
+    });
+
+    AudioUtils.speak('¿Cuántos objetos ves?');
   },
-  
+
+  generateOptions(correct) {
+    let options = [correct];
+    const allNumbers = appData.numeros.map(n => n.numero);
+    
+    while (options.length < 3) {
+      const randomNumber = allNumbers[Math.floor(Math.random() * allNumbers.length)];
+      if (!options.includes(randomNumber)) {
+        options.push(randomNumber);
+      }
+    }
+    
+    // Mezclar las opciones
+    return options.sort(() => Math.random() - 0.5);
+  },
+
+  checkAnswer(selectedNumber) {
+    const feedback = document.getElementById('number-feedback');
+    const buttons = document.querySelectorAll('#number-choices .btn');
+    buttons.forEach(btn => btn.disabled = true); // Deshabilitar botones
+
+    if (selectedNumber === this.correctAnswer) {
+      feedback.textContent = '¡Muy bien! ¡Correcto! 🎉';
+      feedback.style.color = '#27ae60';
+      AudioUtils.speak('¡Correcto!');
+      AudioUtils.playSound(523, 300);
+
+      // Marcar el botón correcto
+      document.querySelector(`#number-choices .btn[data-number="${selectedNumber}"]`).classList.add('correct');
+
+      // Iniciar nueva ronda después de un momento
+      setTimeout(() => {
+        this.generateRound();
+      }, 2000);
+
+    } else {
+      feedback.textContent = 'Ese no es. ¡Inténtalo de nuevo!';
+      feedback.style.color = '#e74c3c';
+      AudioUtils.speak('Inténtalo de nuevo');
+      AudioUtils.playSound(200, 200);
+
+      // Marcar el botón incorrecto y el correcto
+      document.querySelector(`#number-choices .btn[data-number="${selectedNumber}"]`).classList.add('incorrect');
+      document.querySelector(`#number-choices .btn[data-number="${this.correctAnswer}"]`).classList.add('correct');
+
+      // Permitir un nuevo intento después de un momento
+      setTimeout(() => {
+        this.generateRound();
+      }, 2500);
+    }
+  },
+
   bindEvents() {
-    document.getElementById('prev-number').addEventListener('click', () => {
-      if (currentState.currentNumber > 0) {
-        currentState.currentNumber--;
-        this.updateDisplay();
-        AudioUtils.playSound(300, 100);
-      }
-    });
-    
-    document.getElementById('next-number').addEventListener('click', () => {
-      if (currentState.currentNumber < appData.numeros.length - 1) {
-        currentState.currentNumber++;
-        this.updateDisplay();
-        AudioUtils.playSound(400, 100);
-      }
-    });
-    
-    document.getElementById('play-number-audio').addEventListener('click', () => {
-      const numero = appData.numeros[currentState.currentNumber];
-      AudioUtils.speak(`Número ${numero.numero}, ${numero.palabra}`);
-    });
-    
     document.getElementById('back-from-numeros').addEventListener('click', () => {
       ScreenManager.showScreen('main-menu');
       AudioUtils.playSound(350, 150);
@@ -255,44 +356,85 @@ const NumbersActivity = {
 };
 
 const VocalesActivity = {
+  correctVocal: '',
+
   init() {
-    this.updateDisplay();
+    this.generateRound();
     this.bindEvents();
   },
-  
-  updateDisplay() {
-    const vocal = appData.vocales[currentState.currentVocal];
-    document.getElementById('current-vocal').textContent = vocal.vocal;
-    document.getElementById('current-vocal-word').textContent = vocal.palabra;
-    document.getElementById('current-vocal-image').textContent = vocal.imagen;
-    
-    // Actualizar navegación
-    document.getElementById('prev-vocal').disabled = currentState.currentVocal === 0;
-    document.getElementById('next-vocal').disabled = currentState.currentVocal === appData.vocales.length - 1;
+
+  generateRound() {
+    // 1. Elegir una vocal aleatoria
+    const randomIndex = Math.floor(Math.random() * appData.vocales.length);
+    const currentVocalData = appData.vocales[randomIndex];
+    this.correctVocal = currentVocalData.vocal;
+
+    // 2. Mostrar la vocal de la pregunta
+    const vocalQuestion = document.getElementById('vocal-question');
+    vocalQuestion.textContent = this.correctVocal;
+
+    // 3. Limpiar opciones y feedback anteriores
+    const choicesContainer = document.getElementById('vocal-choices');
+    choicesContainer.innerHTML = '';
+    const feedback = document.getElementById('vocal-feedback');
+    feedback.innerHTML = '';
+
+    // 4. Generar opciones de imágenes
+    const options = this.generateOptions(this.correctVocal);
+
+    // 5. Crear y mostrar los botones de opción
+    options.forEach(option => {
+      const button = document.createElement('button');
+      button.className = 'btn btn--secondary vocal-choice-btn';
+      button.innerHTML = `<span class="vocal-choice-img">${option.imagen}</span>`;
+      button.setAttribute('data-vocal', option.vocal);
+      button.addEventListener('click', () => this.checkAnswer(option.vocal));
+      choicesContainer.appendChild(button);
+    });
+
+    AudioUtils.speak(`Busca la imagen que empieza con la vocal ${this.correctVocal}`);
   },
-  
+
+  generateOptions(correctVocal) {
+    const correctOption = appData.vocales.find(v => v.vocal === correctVocal);
+    let options = [correctOption];
+    
+    while (options.length < 3) {
+      const randomVocal = appData.vocales[Math.floor(Math.random() * appData.vocales.length)];
+      if (!options.some(opt => opt.vocal === randomVocal.vocal)) {
+        options.push(randomVocal);
+      }
+    }
+    
+    return options.sort(() => Math.random() - 0.5); // Mezclar
+  },
+
+  checkAnswer(selectedVocal) {
+    const feedback = document.getElementById('vocal-feedback');
+    const buttons = document.querySelectorAll('#vocal-choices .btn');
+    buttons.forEach(btn => btn.disabled = true);
+
+    if (selectedVocal === this.correctVocal) {
+      feedback.textContent = '¡Excelente! ¡Respuesta correcta! ✅';
+      feedback.style.color = '#27ae60';
+      AudioUtils.speak('¡Correcto!');
+      AudioUtils.playSound(523, 300);
+      document.querySelector(`#vocal-choices .btn[data-vocal="${selectedVocal}"]`).classList.add('correct');
+
+      setTimeout(() => this.generateRound(), 2000);
+    } else {
+      feedback.textContent = '¡Ups! Esa no es. Intenta de nuevo.';
+      feedback.style.color = '#e74c3c';
+      AudioUtils.speak('Inténtalo de nuevo');
+      AudioUtils.playSound(200, 200);
+      document.querySelector(`#vocal-choices .btn[data-vocal="${selectedVocal}"]`).classList.add('incorrect');
+      document.querySelector(`#vocal-choices .btn[data-vocal="${this.correctVocal}"]`).classList.add('correct');
+
+      setTimeout(() => this.generateRound(), 2500);
+    }
+  },
+
   bindEvents() {
-    document.getElementById('prev-vocal').addEventListener('click', () => {
-      if (currentState.currentVocal > 0) {
-        currentState.currentVocal--;
-        this.updateDisplay();
-        AudioUtils.playSound(300, 100);
-      }
-    });
-    
-    document.getElementById('next-vocal').addEventListener('click', () => {
-      if (currentState.currentVocal < appData.vocales.length - 1) {
-        currentState.currentVocal++;
-        this.updateDisplay();
-        AudioUtils.playSound(400, 100);
-      }
-    });
-    
-    document.getElementById('play-vocal-audio').addEventListener('click', () => {
-      const vocal = appData.vocales[currentState.currentVocal];
-      AudioUtils.speak(`Vocal ${vocal.vocal}, ${vocal.palabra}`);
-    });
-    
     document.getElementById('back-from-vocales').addEventListener('click', () => {
       ScreenManager.showScreen('main-menu');
       AudioUtils.playSound(350, 150);

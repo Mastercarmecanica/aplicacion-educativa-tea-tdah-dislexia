@@ -79,26 +79,22 @@
             <button id="back-from-numeros" class="btn btn--back" aria-label="Volver al menú principal">
                 <span>← Volver</span>
             </button>
-            <h1>Números del 1 al 5</h1>
+            <h1>¿Cuántos ves?</h1>
         </div>
         
         <div class="activity-content">
-            <div class="number-display" id="number-display">
-                <div class="number-visual">
-                    <div class="number-digit" id="current-number">1</div>
-                    <div class="number-word" id="current-word">uno</div>
+            <div class="number-game-container">
+                <div class="number-objects-display" id="number-objects-display">
+                    <!-- Los objetos (frutas) se generarán aquí -->
                 </div>
-                <div class="number-objects" id="number-objects">
-                    <span class="object">🍎</span>
+                
+                <p class="game-instruction">Toca el número correcto</p>
+                
+                <div class="number-choices" id="number-choices">
+                    <!-- Las opciones de números se generarán aquí -->
                 </div>
-            </div>
-            
-            <div class="activity-controls">
-                <button id="prev-number" class="btn btn--secondary" aria-label="Número anterior">← Anterior</button>
-                <button id="play-number-audio" class="btn btn--primary" aria-label="Escuchar pronunciación">
-                    <span>🔊 Escuchar</span>
-                </button>
-                <button id="next-number" class="btn btn--secondary" aria-label="Siguiente número">Siguiente →</button>
+                
+                <div class="game-feedback" id="number-feedback"></div>
             </div>
         </div>
     </div>
@@ -109,24 +105,19 @@
             <button id="back-from-vocales" class="btn btn--back" aria-label="Volver al menú principal">
                 <span>← Volver</span>
             </button>
-            <h1>Las Vocales</h1>
+            <h1>Juego de Vocales</h1>
         </div>
         
         <div class="activity-content">
-            <div class="vocal-display" id="vocal-display">
-                <div class="vocal-visual">
-                    <div class="vocal-letter" id="current-vocal">A</div>
-                    <div class="vocal-word" id="current-vocal-word">abeja</div>
-                    <div class="vocal-image" id="current-vocal-image">🐝</div>
+            <div class="vocal-game-container">
+                <p class="game-instruction">¿Qué objeto empieza con la vocal...?</p>
+                <div class="vocal-question" id="vocal-question">A</div>
+                
+                <div class="vocal-choices" id="vocal-choices">
+                    <!-- Las opciones de imágenes se generarán aquí -->
                 </div>
-            </div>
-            
-            <div class="activity-controls">
-                <button id="prev-vocal" class="btn btn--secondary" aria-label="Vocal anterior">← Anterior</button>
-                <button id="play-vocal-audio" class="btn btn--primary" aria-label="Escuchar vocal">
-                    <span>🔊 Escuchar</span>
-                </button>
-                <button id="next-vocal" class="btn btn--secondary" aria-label="Siguiente vocal">Siguiente →</button>
+                
+                <div class="game-feedback" id="vocal-feedback"></div>
             </div>
         </div>
     </div>
