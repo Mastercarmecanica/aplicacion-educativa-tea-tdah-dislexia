@@ -922,3 +922,25 @@ body.easy-reading {
 .vocal-choice-img {
   font-size: 4rem;
 }
+
+/* New Consonant Game Styles */
+.consonant-game-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-6);
+}
+
+.consonant-question {
+  font-size: 6rem;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary);
+  line-height: 1;
+}
+
+.consonant-choices {
+  display: flex;
+  gap: var(--spacing-6);
+  justify-content: center;
+  flex-wrap: wrap;
+}
