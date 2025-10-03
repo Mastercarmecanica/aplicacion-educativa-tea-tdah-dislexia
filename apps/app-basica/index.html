@@ -10,7 +10,27 @@
 <body>
     <!-- Pantalla de Bienvenida -->
     <div id="welcome-screen" class="screen active" role="main">
-        <!-- ... (contenido existente) ... -->
+        <div class="welcome-container">
+            <h1 class="welcome-title">¡Hola! 👋</h1>
+            <p class="welcome-subtitle">¡Bienvenido a tu espacio de aprendizaje!</p>
+            
+            <div class="accessibility-controls" role="group" aria-label="Controles de accesibilidad">
+                <button id="toggle-audio" class="btn btn--secondary control-btn" aria-pressed="true">
+                    <span class="control-icon">🔊</span>
+                    <span>Audio Activado</span>
+                </button>
+                
+                <button id="toggle-easy-reading" class="btn btn--secondary control-btn" aria-pressed="false">
+                    <span class="control-icon">📖</span>
+                    <span>Lectura Fácil</span>
+                </button>
+            </div>
+            
+            <button id="start-btn" class="btn btn--primary btn--lg welcome-start-btn">
+                <span>¡Empezar a Aprender!</span>
+                <span class="btn-icon">🌟</span>
+            </button>
+        </div>
     </div>
 
     <!-- Menú Principal -->
@@ -54,7 +74,43 @@
         </div>
     </div>
 
-    <!-- ... (pantallas de actividades existentes) ... -->
+    <!-- Actividad: Números -->
+    <div id="numeros-screen" class="screen activity-screen" role="main">
+        <div class="activity-header">
+            <button id="back-from-numeros" class="btn btn--back" aria-label="Volver al menú principal">
+                <span>← Volver</span>
+            </button>
+            <h1>¿Cuántos ves?</h1>
+        </div>
+        
+        <div class="activity-content">
+            <div class="number-game-container">
+                <div class="number-objects-display" id="number-objects-display"></div>
+                <p class="game-instruction">Toca el número correcto</p>
+                <div class="number-choices" id="number-choices"></div>
+                <div class="game-feedback" id="number-feedback"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Actividad: Vocales -->
+    <div id="vocales-screen" class="screen activity-screen" role="main">
+        <div class="activity-header">
+            <button id="back-from-vocales" class="btn btn--back" aria-label="Volver al menú principal">
+                <span>← Volver</span>
+            </button>
+            <h1>Juego de Vocales</h1>
+        </div>
+        
+        <div class="activity-content">
+            <div class="vocal-game-container">
+                <p class="game-instruction">¿Qué objeto empieza con la vocal...?</p>
+                <div class="vocal-question" id="vocal-question">A</div>
+                <div class="vocal-choices" id="vocal-choices"></div>
+                <div class="game-feedback" id="vocal-feedback"></div>
+            </div>
+        </div>
+    </div>
 
     <!-- Actividad: Consonantes -->
     <div id="consonantes-screen" class="screen activity-screen" role="main">
@@ -69,17 +125,79 @@
             <div class="consonant-game-container">
                 <p class="game-instruction">¿Qué objeto empieza con la letra...?</p>
                 <div class="consonant-question" id="consonant-question">M</div>
-                
-                <div class="consonant-choices" id="consonant-choices">
-                    <!-- Opciones de imágenes -->
-                </div>
-                
+                <div class="consonant-choices" id="consonant-choices"></div>
                 <div class="game-feedback" id="consonant-feedback"></div>
             </div>
         </div>
     </div>
 
-    <!-- ... (resto de las pantallas) ... -->
+    <!-- Actividad: Cuentos -->
+    <div id="cuentos-screen" class="screen activity-screen" role="main">
+        <div class="activity-header">
+            <button id="back-from-cuentos" class="btn btn--back" aria-label="Volver al menú principal">
+                <span>← Volver</span>
+            </button>
+            <h1>Cuentos Divertidos</h1>
+        </div>
+        
+        <div class="activity-content">
+            <div class="story-display" id="story-display">
+                <div class="story-icon" id="story-icon"></div>
+                <h2 class="story-title" id="story-title"></h2>
+                <p class="story-text" id="story-text"></p>
+            </div>
+            
+            <div class="story-controls">
+                <button id="prev-story" class="btn btn--secondary">← Anterior</button>
+                <button id="play-story-audio" class="btn btn--primary">🔊 Leer Cuento</button>
+                <button id="next-story" class="btn btn--secondary">Siguiente →</button>
+            </div>
+            
+            <div class="story-question" id="story-question" style="display: none;">
+                <h3 class="question-text" id="question-text"></h3>
+                <div class="question-options" id="question-options"></div>
+                <div class="question-feedback" id="question-feedback"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Actividad: Memoria -->
+    <div id="memoria-screen" class="screen activity-screen" role="main">
+        <div class="activity-header">
+            <button id="back-from-memoria" class="btn btn--back" aria-label="Volver al menú principal">
+                <span>← Volver</span>
+            </button>
+            <h1>Juego de Memoria</h1>
+        </div>
+        
+        <div class="activity-content">
+            <div class="memory-info">
+                <p class="memory-instruction">Encuentra las parejas iguales</p>
+                <div class="memory-stats">
+                    <span>Parejas encontradas: <strong id="pairs-found">0</strong></span>
+                </div>
+            </div>
+            
+            <div class="memory-grid" id="memory-grid"></div>
+            
+            <div class="memory-controls">
+                <button id="reset-memory" class="btn btn--secondary">🔄 Nuevo Juego</button>
+                <button id="memory-hint" class="btn btn--primary">💡 Ayuda</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pantalla de Felicitaciones -->
+    <div id="congratulations-screen" class="screen" role="main">
+        <div class="congratulations-container">
+            <h1 class="congratulations-title">¡Muy bien! 🎉</h1>
+            <div class="congratulations-icon">⭐</div>
+            <p class="congratulations-text">¡Has ganado una estrella!</p>
+            <button id="continue-btn" class="btn btn--primary btn--lg">
+                <span>Continuar Aprendiendo</span>
+            </button>
+        </div>
+    </div>
 
     <script src="app.js"></script>
 </body>
