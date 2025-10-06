@@ -191,7 +191,7 @@ const appData = {
     { letra: "C", imagen: "🍒", palabra: "cereza" },
     { letra: "D", imagen: "🐬", palabra: "delfin" },
     { letra: "D", imagen: "🍑", palabra: "durazno" },
-    { letra: "F", imagen: "🦭", palabra: "foca" },
+    { letra: "F", imagen: "🦩", palabra: "flamenco" },
     { letra: "F", imagen: "🍓", palabra: "fresa" },
     { letra: "G", imagen: "🐈", palabra: "gato" },
     { letra: "G", imagen: "🦒", palabra: "girafa" }
