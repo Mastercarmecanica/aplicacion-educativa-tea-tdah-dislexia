@@ -176,10 +176,25 @@ const appData = {
   },
   consonantes: [
     { letra: "M", imagen: "🐵", palabra: "mono" },
+    { letra: "M", imagen: "🍎", palabra: "manzana" },
     { letra: "P", imagen: "🐧", palabra: "pingüino" },
+    { letra: "P", imagen: "🐶", palabra: "perro" },
     { letra: "S", imagen: "🐍", palabra: "serpiente" },
+    { letra: "S", imagen: "🐸", palabra: "sapo" },
     { letra: "L", imagen: "🦁", palabra: "león" },
-    { letra: "T", imagen: "🐢", palabra: "tortuga" }
+    { letra: "L", imagen: "🐺", palabra: "lobo" },
+    { letra: "T", imagen: "🐢", palabra: "tortuga" },
+    { letra: "T", imagen: "🐯", palabra: "tigre" },
+    { letra: "B", imagen: "🐳", palabra: "ballena" },
+    { letra: "B", imagen: "🍌", palabra: "banano" },
+    { letra: "C", imagen: "🐰", palabra: "conejo" },
+    { letra: "C", imagen: "🍒", palabra: "cereza" },
+    { letra: "D", imagen: "🐬", palabra: "delfin" },
+    { letra: "D", imagen: "🍑", palabra: "durazno" },
+    { letra: "F", imagen: "🦭", palabra: "foca" },
+    { letra: "F", imagen: "🍓", palabra: "fresa" },
+    { letra: "G", imagen: "🐈", palabra: "gato" },
+    { letra: "G", imagen: "🦒", palabra: "girafa" }
   ]
 };
 
@@ -467,7 +482,7 @@ const ConsonantsActivity = {
     choicesContainer.innerHTML = '';
     document.getElementById('consonant-feedback').innerHTML = '';
 
-    const options = this.generateOptions(this.correctConsonant);
+    const options = this.generateOptions(currentConsonantData);
 
     options.forEach(option => {
       const button = document.createElement('button');
@@ -481,8 +496,7 @@ const ConsonantsActivity = {
     AudioUtils.speak(`Busca la imagen que empieza con la letra ${this.correctConsonant}`);
   },
 
-  generateOptions(correctLetter) {
-    const correctOption = appData.consonantes.find(c => c.letra === correctLetter);
+  generateOptions(correctOption) {
     let options = [correctOption];
     
     while (options.length < 3) {
